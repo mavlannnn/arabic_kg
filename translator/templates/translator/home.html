@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Translator</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+<style>
+    body{
+    background-image: url();
+    }
+    .footer {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .footer a {
+        margin: 0 10px;
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+        background-size: cover;
+        background-repeat: no-repeat;
+        text-indent: -9999px; /* скрываем текст ссылки */
+    }
+    .footer a.facebook {
+        background-image: url('{% static "images/icons/facebook.png" %}');
+    }
+    .footer a.telegram {
+        background-image: url('{% static "images/icons/telegram.png" %}');
+    }
+    .footer a.vk {
+        background-image: url('{% static "images/icons/vk.png" %}');
+    }
+</style>
+
+<div class="container">
+    <h1>Котормочу</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">издөө</button>
+    </form>
+
+    {% if translations %}
+    <ul>
+      {% for translation in translations %}
+      <li>{{ translation.arabic_word }} - {{ translation.kyrgyz_word }} - {{ translation.meaning }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div class="footer">
+        <a href="https://www.facebook.com/" class="facebook">Facebook</a>
+        <a href="https://telegram.org/" class="telegram">Telegram</a>
+        <a href="https://vk.com/" class="vk">VK</a>
+    </div>
+    <a href="{% url 'admin_panel' %}" class="admin-link">Admin Panel</a>
+</div>
+
+</body>
+</html>
